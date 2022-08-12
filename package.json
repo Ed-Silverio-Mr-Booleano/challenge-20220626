@@ -19,6 +19,23 @@
   },
   "scripts": {
     "test": "jest",
-    "test:staged": "jest"
-  }
+    "test:staged": "jest",
+    "dev": "node ./dist/main.js",
+    "start": "node ./dist/main.js",
+    "build": "tsc"
+  },
+  "name": "challenge-20220626",
+  "description": "",
+  "version": "1.0.0",
+  "main": "src/main.ts",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://lab.coodesh.com/edmilsonjosesilverio6/challenge-20220626.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
