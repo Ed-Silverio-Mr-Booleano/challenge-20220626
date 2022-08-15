@@ -7,8 +7,14 @@ export default function ProductsRouter (
 ): express.Router {
   const router = express.Router()
 
-  router.get('', (request: Request, response: Response) => {
-    response.status(200).send()
+  router.get('/', async (request: Request, response: Response) => {
+    try {
+      const products = await getAllProductsUseCase.execute()
+      response.send(products)
+    } catch (error) {
+      console.log(error.message)
+      response.status(500).send()
+    }
   })
 
   return router
