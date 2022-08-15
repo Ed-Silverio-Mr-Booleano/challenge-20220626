@@ -13,7 +13,7 @@ export default function ProductsRouter (
       response.send(products)
     } catch (error) {
       console.log(error.message)
-      response.status(500).send()
+      response.status(500).send({ message: 'Error fetching data' })
     }
   })
 
