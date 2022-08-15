@@ -50,5 +50,11 @@ describe('Product Router', () => {
       expect(mockGetAllProductsUseCase.execute).toBeCalledTimes(1)
       expect(response.body).toStrictEqual(ExpectedData)
     })
+    test('Should return 500 on use case error', async () => {
+      jest.spyOn(mockGetAllProductsUseCase, 'execute').mockImplementation(async () => await Promise.reject(Error()))
+      const response = await request(server).get('/products')
+      expect(response.status).toBe(500)
+      expect(response.body).toStrictEqual({ message: 'Error fetching data' })
+    })
   })
 })
