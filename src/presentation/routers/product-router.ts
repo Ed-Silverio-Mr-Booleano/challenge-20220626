@@ -17,9 +17,14 @@ export default function ProductsRouter (
     }
   })
   router.get('/:code', async (request: Request, response: Response) => {
-    const code: number = Number.parseInt(request.params.code)
-    const product = await getOneProductsUseCase.execute(code)
-    response.send(product)
+    try {
+      const code: number = Number.parseInt(request.params.code)
+      const product = await getOneProductsUseCase.execute(code)
+      response.send(product)
+    } catch (error) {
+      console.log(error.message)
+      response.status(500).send({ message: 'Error fetching data' })
+    }
   })
 
   return router
