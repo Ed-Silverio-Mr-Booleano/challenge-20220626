@@ -2,7 +2,7 @@ export interface ProductEntity {
   code: number
   barcode: string
   status: string
-  imported_t: Date
+  imported_t: string
   url: string
   product_name: string
   quantity: string
