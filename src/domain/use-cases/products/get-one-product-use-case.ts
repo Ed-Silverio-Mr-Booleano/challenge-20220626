@@ -1,15 +1,15 @@
 import { ProductEntity } from '../../entities/product'
 import { ProductRepository } from '../../interfaces/repositories/product-repository'
-import { GetAllProductsUseCase } from '../../interfaces/use-cases/get-all-product-use-case'
+import { GetOneProductUseCase } from '../../interfaces/use-cases/get-one-product-use-case'
 
-export class GetAllProducts implements GetAllProductsUseCase {
+export class GetOneProduct implements GetOneProductUseCase {
   productRepository: ProductRepository
   constructor (productRepository: ProductRepository) {
     this.productRepository = productRepository
   }
 
-  async execute (): Promise<ProductEntity[] | null> {
-    const result = await this.productRepository.getProducts()
+  async execute (code: number): Promise<ProductEntity | null> {
+    const result = await this.productRepository.getProduct(code)
     return result
   }
 }
