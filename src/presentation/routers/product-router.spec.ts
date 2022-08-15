@@ -47,6 +47,8 @@ describe('Product Router', () => {
       jest.spyOn(mockGetAllProductsUseCase, 'execute').mockImplementation(async () => await Promise.resolve(ExpectedData))
       const response = await request(server).get('/products')
       expect(response.status).toBe(200)
+      expect(mockGetAllProductsUseCase.execute).toBeCalledTimes(1)
+      expect(response.body).toStrictEqual(ExpectedData)
     })
   })
 })
