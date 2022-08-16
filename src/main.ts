@@ -1,5 +1,6 @@
 import server from './server'
 import ProductsRouter from './presentation/routers/product-router'
+import mainRouter from './presentation/routers/main-router'
 import { GetAllProducts } from './domain/use-cases/products/get-all-product-use-case'
 import { ProductRepositoryImpl } from './domain/repositories/product-respository'
 import { GetOneProduct } from './domain/use-cases/products/get-one-product-use-case'
@@ -33,5 +34,6 @@ async function getMongoDS (): Promise<MongoDBProductDataSource> {
     new GetOneProduct(new ProductRepositoryImpl(dataSource))
   )
   server.use('/products', productMiddleware)
-  server.listen(PORT, () => console.log(`Running on hhtp://localhost:${PORT}`))
+  server.use('/', mainRouter())
+  server.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`))
 })()
