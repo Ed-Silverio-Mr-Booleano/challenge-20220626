@@ -20,6 +20,7 @@ export default function ProductsRouter (
     try {
       const code: number = Number.parseInt(request.params.code)
       const product = await getOneProductsUseCase.execute(code)
+      console.log('code:', code)
       response.send(product)
     } catch (error) {
       console.log(error.message)

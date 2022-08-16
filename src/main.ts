@@ -21,7 +21,8 @@ async function getMongoDS (): Promise<MongoDBProductDataSource> {
 
   const productDatabase: NoSQLDatabaseWrapper = {
     find: (query) => db.collection(process.env.COLLECTION).find(query).toArray(),
-    insertOne: (doc) => db.collection(process.env.COLLECTION).insertOne(doc)
+    insertOne: (doc) => db.collection(process.env.COLLECTION).insertOne(doc),
+    findOne: (query) => db.collection(process.env.COLLECTION).find(query).toArray()
   }
 
   return new MongoDBProductDataSource(productDatabase)

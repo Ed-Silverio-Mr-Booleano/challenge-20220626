@@ -9,9 +9,9 @@ export class MongoDBProductDataSource implements ProductDataSource {
   }
 
   async getOne (code: number): Promise<ProductEntity> {
-    const result = await this.db.find({ _id: code })
+    const result = await this.db.find({ code })
     return result.map(item => ({
-      code: item._id,
+      code: item.code,
       barcode: item.barcode,
       status: item.status,
       imported_t: item.imported_t,
@@ -29,7 +29,7 @@ export class MongoDBProductDataSource implements ProductDataSource {
   async getAll (): Promise<ProductEntity[]> {
     const result = await this.db.find({})
     return result.map(item => ({
-      code: item._id,
+      code: item.code,
       barcode: item.barcode,
       status: item.status,
       imported_t: item.imported_t,
