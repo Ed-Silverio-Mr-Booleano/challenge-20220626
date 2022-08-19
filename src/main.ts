@@ -8,6 +8,8 @@ import { MongoClient } from 'mongodb'
 import { NoSQLDatabaseWrapper } from './data/interfaces/data-source/nosql-database-data-source'
 import { MongoDBProductDataSource } from './data/data-sources/mongodb/mongodb-product-data-source'
 import dotenv from 'dotenv'
+import swaggerUi from 'swagger-ui-express'
+import swaggerFile from '../docs/api.json'
 
 dotenv.config()
 
@@ -36,5 +38,6 @@ async function getMongoDS (): Promise<MongoDBProductDataSource> {
   )
   server.use('/products', productMiddleware)
   server.use('/', mainRouter())
+  server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))
   server.listen(PORT, () => console.log(`Running on http://localhost:${PORT}`))
 })()
