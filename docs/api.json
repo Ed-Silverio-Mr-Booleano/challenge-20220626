@@ -1,0 +1,154 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+  "description": "CRU Products",
+    "title": "Fullstack Challenge 20201026",
+    "version": "0.1",
+    "contact": {
+      "email": "edmilsonjosesilverio6@gmail.com"
+    }
+  },
+  "components": {
+    "schemas": {
+        "Product": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "integer",
+              "example": 3661112502850
+            },
+            "barcode": {
+              "type": "string",
+              "example": "3661112502850(EAN / EAN-13)"
+            },
+            "status": {
+              "type": "string",
+              "example": "imported"
+            },
+            "imported_t": {
+              "type": "string",
+              "example": "2020-02-07T16:00:00Z"
+            },
+            "product_name": {
+              "type": "string",
+              "example": "Jambon de Paris cuit à l'étouffée"
+            },
+            "url": {
+              "type": "string",
+              "example": "https://world.openfoodfacts.org/product/3661112502850"
+            },
+            "quantity": {
+              "type": "string",
+              "example": "240 g"
+            },
+            "categories": {
+              "type": "string",
+              "example": "Meats, Prepared meats, Hams, White hams"
+            },
+            "brands": {
+              "type": "string",
+              "example": "Film en plastique, Film en plastique"
+            },
+            "packaging": {
+              "type": "string",
+              "example": "Tradilège, Marque Repère"
+            },
+            "image_url": {
+              "type": "string",
+              "example": "https://static.openfoodfacts.org/images/products/366/111/250/2850/front_fr.3.400.jpg"
+            }
+          }
+        }
+      }
+  },
+  "tags": [
+    {
+      "name": "Products",
+      "description": "products"
+    }
+  ],
+  "paths": {
+     "/": {
+        "get": {
+          "tags": ["Main"],
+          "summary":"main route",
+          "description": "main route",
+          "produces": ["application/json"],
+          "responses": {
+            "200": {
+              "description": "main route",
+              "content": {
+                "application/json": {
+                   "schema": {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                           "type": "string",
+                           "example": "Fullstack Challenge 20201026"
+                        }
+                      }
+                   }
+                }
+              }
+            }
+           }
+        }
+     },
+     "/products": {
+        "get": {
+          "tags": ["Products"],
+          "summary": "get all products",
+          "description": "get all products",
+          "produces": ["application/json"],
+          "parameters": [
+            
+          ],
+          "responses": {
+             "200": {
+                "description": "sucessful operation",
+                "content": {
+                   "application/json": {
+                      "schema": {
+                        "items": {
+                          "type": "object",
+                          "$ref": "#/components/schemas/Product"
+                        }             
+                      }
+                   }
+                }
+             }
+          }
+        }
+     },
+     "/products/{code}": {
+        "get" : {
+          "tags": ["Products"],
+          "summary": "get one product",
+          "description": "get one product",
+          "produces": ["application/json"],
+          "parameters": [
+            {
+              "in": "path",
+              "name": "code",
+              "description": "product code",
+              "require": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "get one product",
+               "content": {
+                  "application/json": {
+                    "schema": {
+                      "type": "object",
+                      "$ref": "#/components/schemas/Product"
+                    }
+                  }
+                }
+            }
+
+          }
+        }
+     }
+  }
+}
