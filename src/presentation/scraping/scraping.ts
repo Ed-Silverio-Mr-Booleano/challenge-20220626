@@ -1,20 +1,25 @@
+/* eslint-disable eqeqeq */
 /* eslint-disable import/no-duplicates */
 /* eslint-disable @typescript-eslint/restrict-plus-operands */
 import axios1 from 'axios'
 import axios2 from 'axios'
 import { load } from 'cheerio'
+import moment from 'moment'
+import { ProductEntity } from '../../domain/entities/product'
 
 const url = 'https://world.openfoodfacts.org'
 const ProductsFirstPage = []
-async function getProducts (): Promise<void> {
+let Products = []
+export default async function getProducts (): Promise<ProductEntity[]> {
   let code: number, productName: string, urlImg: string, urlP: string, productURL: string
   await axios1.get(url).then(response => {
     const $ = load(response.data)
     let counter = 0
-    const qdt = $('search_results ul li').length
+    // const qtd = $('search_results ul li').html().length
+    // console.log('qtd =>', qtd)
 
     $('#search_results ul li').map(async (index, elem) => {
-      if (index < qdt) {
+      if (index < 2) {
         code = Number.parseInt($(elem).find('a').attr('href').split('/')[2])
         productName = $(elem).find('a>span').text()
         urlImg = $(elem).find('div>img').attr('src')
@@ -27,6 +32,7 @@ async function getProducts (): Promise<void> {
           const packaging = $2('#field_packaging_value').text()
           const brands = $2('#field_brands_value').text()
           const categories = $2('#field_categories_value').text()
+          const CurrentDate = moment().format()
 
           ProductsFirstPage.push({
             code,
@@ -37,14 +43,18 @@ async function getProducts (): Promise<void> {
             quantity,
             packaging,
             brands,
-            categories
+            categories,
+            imported_t: CurrentDate,
+            status: 'imported'
           })
           counter++
-          if (counter === qdt) return console.log('products =>', ProductsFirstPage)
+          if (counter == 2) {
+            Products = ProductsFirstPage
+            return ProductsFirstPage
+          }
         })
       }
     })
   }).catch(error => { console.log('error:', error) })
+  return Products
 }
-
-getProducts()
