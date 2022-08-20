@@ -2,6 +2,7 @@ import server from './server'
 import ProductsRouter from './presentation/routers/product-router'
 import mainRouter from './presentation/routers/main-router'
 import { GetAllProducts } from './domain/use-cases/products/get-all-product-use-case'
+import { CreateProduct } from './domain/use-cases/products/create-product-use-case'
 import { ProductRepositoryImpl } from './domain/repositories/product-respository'
 import { GetOneProduct } from './domain/use-cases/products/get-one-product-use-case'
 import { MongoClient } from 'mongodb'
@@ -10,6 +11,7 @@ import { MongoDBProductDataSource } from './data/data-sources/mongodb/mongodb-pr
 import dotenv from 'dotenv'
 import swaggerUi from 'swagger-ui-express'
 import swaggerFile from '../docs/api.json'
+import ProductCron from './presentation/cron/cron'
 
 dotenv.config()
 
@@ -23,7 +25,7 @@ async function getMongoDS (): Promise<MongoDBProductDataSource> {
 
   const productDatabase: NoSQLDatabaseWrapper = {
     find: (query) => db.collection(process.env.COLLECTION).find(query).toArray(),
-    insertOne: (doc) => db.collection(process.env.COLLECTION).insertOne(doc),
+    insertOne: (doc) => db.collection(process.env.COLLECTION).insertMany(doc),
     findOne: (query) => db.collection(process.env.COLLECTION).find(query).toArray()
   }
 
@@ -36,6 +38,7 @@ async function getMongoDS (): Promise<MongoDBProductDataSource> {
     new GetAllProducts(new ProductRepositoryImpl(dataSource)),
     new GetOneProduct(new ProductRepositoryImpl(dataSource))
   )
+  ProductCron(new CreateProduct(new ProductRepositoryImpl(dataSource)))
   server.use('/products', productMiddleware)
   server.use('/', mainRouter())
   server.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile))

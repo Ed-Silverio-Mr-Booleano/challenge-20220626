@@ -1,5 +1,5 @@
 import { ProductEntity } from '../../entities/product'
 
 export interface CreateProductUseCase {
-  execute(product: ProductEntity): void
+  execute(product: ProductEntity[]): void
 }

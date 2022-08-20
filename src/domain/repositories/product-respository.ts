@@ -8,7 +8,7 @@ export class ProductRepositoryImpl implements ProductRepository {
     this.productDataSource = productDataSource
   }
 
-  async createProduct (products: ProductEntity): Promise<void> {
+  async createProduct (products: ProductEntity[]): Promise<void> {
     await this.productDataSource.create(products)
   }
 

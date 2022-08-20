@@ -8,7 +8,7 @@ export class CreateProduct implements CreateProductUseCase {
     this.productRepository = ProductRepository
   }
 
-  async execute (product: ProductEntity): Promise<void> {
+  async execute (product: ProductEntity[]): Promise<void> {
     await this.productRepository.createProduct(product)
   }
 }
