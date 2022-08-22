@@ -8,8 +8,8 @@ export class GetAllProducts implements GetAllProductsUseCase {
     this.productRepository = productRepository
   }
 
-  async execute (): Promise<ProductEntity[] | null> {
-    const result = await this.productRepository.getProducts()
+  async execute (page: any): Promise<ProductEntity[] | null> {
+    const result = await this.productRepository.getProducts(page)
     return result
   }
 }

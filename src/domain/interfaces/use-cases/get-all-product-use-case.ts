@@ -1,5 +1,5 @@
 import { ProductEntity } from '../../entities/product'
 
 export interface GetAllProductsUseCase {
-  execute(): Promise<ProductEntity[] | null>
+  execute(page: any): Promise<ProductEntity[] | null>
 }

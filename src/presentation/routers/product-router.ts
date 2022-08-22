@@ -9,7 +9,8 @@ export default function ProductsRouter (
 
   router.get('/', async (request: Request, response: Response) => {
     try {
-      const products = await getAllProductsUseCase.execute()
+      const { page = '1' } = request.query
+      const products = await getAllProductsUseCase.execute(page)
       response.send(products)
     } catch (error) {
       console.log(error.message)
