@@ -7,7 +7,7 @@ import { CreateProductUseCase } from '../../domain/interfaces/use-cases/create-p
 let count = 9
 let url = 'https://world.openfoodfacts.org/' + count
 export default function ProductCron (createProductUseCase: CreateProductUseCase): void {
-  const job = new CronJob('*/30 * * * * *', async () => {
+  const job = new CronJob('0 0 9 1/1 * ? *', async () => {
     await getProducts(url).then((response) => {
       if (response.length !== 0) {
         createProductUseCase.execute(response)

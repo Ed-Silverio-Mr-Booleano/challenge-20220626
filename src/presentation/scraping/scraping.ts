@@ -21,7 +21,7 @@ export default async function getProducts (url: any): Promise<ProductEntity[]> {
     // console.log('qtd =>', qtd)
 
     $('#search_results ul li').each((index, elem) => {
-      if (index < 2) {
+      if (index < 100) {
         const code = Number.parseInt($(elem).find('a').attr('href').split('/')[2])
         const productName = $(elem).find('a>span').text()
         const urlImg = $(elem).find('div>img').attr('src')
@@ -52,9 +52,9 @@ export default async function getProducts (url: any): Promise<ProductEntity[]> {
             status: 'imported'
           })
           counter++
-          if (counter == 2) {
+          if (counter == 100) {
             Products = ProductsFirstPage
-            console.log(ProductsFirstPage)
+            // console.log(ProductsFirstPage)
             save(ProductsFirstPage)
             return ProductsFirstPage
           }
