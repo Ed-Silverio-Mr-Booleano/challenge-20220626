@@ -40,6 +40,7 @@
     "dev:main": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/main.ts",
     "dev:scraping": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/presentation/scraping/scraping.ts",
     "dev:cron": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/presentation/cron/cron.ts",
+    "dev:file": "ts-node-dev --transpile-only --ignore-watch node_modules --respawn src/presentation/stream/file.ts",
     "start": "node ./dist/main.js",
     "build": "tsc"
   },
