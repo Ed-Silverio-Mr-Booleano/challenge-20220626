@@ -14,7 +14,7 @@ build-job:
 
 # Job 2
 deploy-job:
-  image: ruby-latest
+  image: ruby:latest
   stage: deploy
   before_script:
     - apt-get update -qy
