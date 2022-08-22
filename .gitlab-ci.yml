@@ -1,7 +1,6 @@
 image: node:16.15.1
 stages:
   - build
-  - test
   - deploy
 
 before_script:
@@ -13,13 +12,7 @@ build-job:
   script:
     - npm run build
 
-# Job 2:
-unit-test-job:
-  stage: test
-  script:
-    - npm run test
-
-# Job 3
+# Job 2
 deploy-job:
   image: ruby-latest
   stage: deploy
