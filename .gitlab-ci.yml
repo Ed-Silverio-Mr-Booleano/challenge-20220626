@@ -1,0 +1,29 @@
+stages:
+  - build
+  - test
+  - deploy
+
+# Job 1:
+build-job:
+  stage: build
+  script:
+    - npm run build
+
+# Job 2:
+unit-test-job:
+  stage: test
+  script:
+    - npm run test
+
+# Job 3
+deploy-job:
+  image: ruby-latest
+  stage: deploy
+  before_script:
+    - apt-get update -qy
+    - apt-get install -y ruby-dev
+    - gem install dpl
+  script:
+    - dpl --provider=herouk --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
+  only:
+    - master
